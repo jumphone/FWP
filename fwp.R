@@ -125,9 +125,9 @@ fwo<-function(data, fw){
 
 fwp <- function(data, fw, n=10){
     TITLE='# Score calculation using FW-based PCA #'
-    print(paste0(rep('#',length(TITLE)),collapse=''))
+    print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print(TITLE)
-    print(paste0(rep('#',length(TITLE)),collapse=''))
+    print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print(Sys.time())
     print('starting...')
     D2=as.matrix(data)
@@ -178,7 +178,7 @@ fwp <- function(data, fw, n=10){
     ###################################
     print('finished!')
     print(Sys.time())
-    print(paste0(rep('#',length(TITLE)),collapse=''))
+    print(paste0(rep('#',nchar(TITLE)),collapse=''))
     ##################################
     return(fY)
     }
