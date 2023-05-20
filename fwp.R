@@ -129,6 +129,7 @@ fwp <- function(data, fw, n=10){
     print(TITLE)
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print(Sys.time())
+    print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print('starting...')
     D2=as.matrix(data)
     FW=fw
@@ -177,6 +178,7 @@ fwp <- function(data, fw, n=10){
     fY=cor(UD2, load.4)[,1]
     ###################################
     print('finished!')
+    print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print(Sys.time())
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
     ##################################
