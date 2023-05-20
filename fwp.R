@@ -76,7 +76,7 @@ library(pROC)
     X_delta = X - X_base
     Y_delta = Y - Y_base
     ###########################
-    ABCD = inferloop.calABCD(X, Y, X_base, Y_base)
+    ABCD = .calABCD(X, Y, X_base, Y_base)
     ###########################
     D = ABCD[['D']]
     D_plus = ( ABCD[['A']] + X_delta * Y_delta ) / sqrt( (ABCD[['B']] + X_delta**2) * (ABCD[['C']] + Y_delta**2) )
