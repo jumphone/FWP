@@ -1,4 +1,4 @@
-#  Score calculation using FW-based PCA
+#  Score calculation using feature-weight (FW) based principal-component-analysis (PCA)
 
     
     library('data.table')
