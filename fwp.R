@@ -1,5 +1,33 @@
 # Score calculation using FW-based PCA
 
+
+library(data.table)
+library(irlba)
+library(pROC)
+
+.loadFileNoGap <-function(input_path){
+   library(data.table)
+   HEADER=as.character(fread(input_path,header=FALSE, nrows=1))
+   HEADER=HEADER[2:length(HEADER)]
+   NET=fread(input_path,header=FALSE,sep='\t',select=c(1), skip=1)$V1
+   SIGNAL=fread(input_path,header=FALSE,sep='\t',select=c(2:(length(HEADER)+1)), skip=1)
+   SIGNAL=as.matrix(SIGNAL)
+   rownames(SIGNAL)=NET
+   colnames(SIGNAL)=HEADER
+   return(SIGNAL)
+   }
+
+.loadFile <-function(input_path){
+   library(data.table)
+   HEADER=as.character(fread(input_path,header=FALSE, nrows=1))
+   NET=fread(input_path,header=FALSE,sep='\t',select=c(1))$V1
+   SIGNAL=fread(input_path,header=FALSE,sep='\t',select=c(2:(length(HEADER)+1)))
+   SIGNAL=as.matrix(SIGNAL)
+   rownames(SIGNAL)=NET
+   colnames(SIGNAL)=HEADER
+   return(SIGNAL)
+   }
+
 .rmOut<-function(X){
     X=X
     Q3=quantile(X,0.75)
