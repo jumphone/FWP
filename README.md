@@ -20,13 +20,13 @@ PCA: principal component analysis
     TEST.DATA=.loadFileNoGap(paste0('./data/56/Fitdevo/',TEST.TYPE,'/mat_test.tsv'))
     TEST.TAG=read.csv(paste0('./data/56/Fitdevo/',TEST.TYPE,'/CorrectDP_test.csv'),header=F)
     
-    # Calculate feature-weight (FW)
+    # step1. calculate feature-weight (FW)
     FW=.calFW(TRAIN.DATA, TRAIN.TAG[,2])
     
-    # Calculate score
+    # step2. calculate score
     out.fwp=fwp(TEST.DATA, FW)
     
-    # Evaluation
+    # step3. evaluation
     result=.evaluate(out.fwp, TEST.TAG[,2])
     
     print(result)
