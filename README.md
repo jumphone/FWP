@@ -1,10 +1,11 @@
 #  Score calculation using FW-based PCA
 
-## FW: feature weight
+FW: feature weight
 
-## PCA: principal component analysis
+PCA: principal component analysis
 
-    
+# Usage:
+
     library('data.table')
     library('irlba')
     library('pROC')
