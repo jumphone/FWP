@@ -1,4 +1,4 @@
-#  Score calculation using FW-based PCA
+#  Score calculation using FWP (FW-based PCA)
 
 FW: feature weight
 
