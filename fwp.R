@@ -1,9 +1,59 @@
-# Score calculation using FW-based PCA
 
+# Score calculation using FW-based PCA
 
 library(data.table)
 library(irlba)
 library(pROC)
+
+
+.simple_combine <- function(exp_sc_mat1, exp_sc_mat2, FILL=FALSE){
+    FILL=FILL
+    exp_sc_mat=exp_sc_mat1
+    exp_ref_mat=exp_sc_mat2
+    ##############################################
+    if(FILL==TRUE){
+        gene1=rownames(exp_sc_mat)
+        gene2=rownames(exp_ref_mat)
+        gene12=gene2[which(!gene2 %in% gene1)]
+        gene21=gene1[which(!gene1 %in% gene2)]
+        exp_sc_mat_add=matrix(0,ncol=ncol(exp_sc_mat),nrow=length(gene12))
+        rownames(exp_sc_mat_add)=gene12
+        colnames(exp_sc_mat_add)=colnames(exp_sc_mat)
+        exp_ref_mat_add=matrix(0,ncol=ncol(exp_ref_mat),nrow=length(gene21))
+        rownames(exp_ref_mat_add)=gene21
+        colnames(exp_ref_mat_add)=colnames(exp_ref_mat)
+        exp_sc_mat=rbind(exp_sc_mat, exp_sc_mat_add)
+        exp_ref_mat=rbind(exp_ref_mat, exp_ref_mat_add)
+    }
+    ############################################
+    exp_sc_mat=exp_sc_mat[order(rownames(exp_sc_mat)),]
+    exp_ref_mat=exp_ref_mat[order(rownames(exp_ref_mat)),]
+    gene_sc=rownames(exp_sc_mat)
+    gene_ref=rownames(exp_ref_mat)
+    gene_over= gene_sc[which(gene_sc %in% gene_ref)]
+    exp_sc_mat=exp_sc_mat[which(gene_sc %in% gene_over),]
+    exp_ref_mat=exp_ref_mat[which(gene_ref %in% gene_over),]
+    colname_sc=colnames(exp_sc_mat)
+    colname_ref=colnames(exp_ref_mat)
+    OUT=list()
+    OUT$exp_sc_mat1=exp_sc_mat
+    OUT$exp_sc_mat2=exp_ref_mat
+    OUT$combine=cbind(exp_sc_mat,exp_ref_mat)
+    return(OUT)
+    }
+
+
+
+
+.normData<-function(mat){
+    mat=mat
+    mat=mat[which(rownames(mat)!=''),]
+    col_sum=colSums(mat)+0.1
+    nmat=t(t(mat)/col_sum) * 100000
+    nmat=log(nmat+1,10)
+    return(nmat)
+    }
+
 
 .loadFileNoGap <-function(input_path){
    library(data.table)
@@ -28,77 +78,22 @@ library(pROC)
    return(SIGNAL)
    }
 
-.rmOut<-function(X){
-    X=X
-    Q3=quantile(X,0.75)
-    Q1=quantile(X,0.25)
-    RANGE=Q3-Q1
-    UP=Q3+1.5*RANGE
-    LW=Q1-1.5*RANGE
-    OUT=X
-    OUT[which(X>UP)]=UP
-    OUT[which(X<LW)]=LW
-    return(OUT)
-    }
 
-.calABCD<-function(X, Y, X_base, Y_base){
-    X=X
-    Y=Y
-    X_base=X_base
-    Y_base=Y_base
-    X_delta=X-X_base
-    Y_delta=Y-Y_base
-    A = sum(X_delta * Y_delta)
-    B = sum(X_delta ** 2)
-    C = sum(Y_delta ** 2)
-    ############################
-    D = A / sqrt( B * C )
-    OUT=list()
-    OUT[['A']]=A
-    OUT[['B']]=B
-    OUT[['C']]=C
-    OUT[['D']]=D
-    return(OUT)
-    }
-
-.pcc_perturb<-function(X, Y, only_pos=TRUE){
-    X=.rmOut(X)
-    Y=.rmOut(Y)
-    only_pos=only_pos
-    #############################
-    N=length(X)
-    ############################
-    X_mean = mean(X)
-    Y_mean = mean(Y)
-    ###########################
-    X_base = X_mean
-    Y_base = Y_mean
-    X_delta = X - X_base
-    Y_delta = Y - Y_base
-    ###########################
-    ABCD = .calABCD(X, Y, X_base, Y_base)
-    ###########################
-    D = ABCD[['D']]
-    D_plus = ( ABCD[['A']] + X_delta * Y_delta ) / sqrt( (ABCD[['B']] + X_delta**2) * (ABCD[['C']] + Y_delta**2) )
-    ###########################
-    M = D_plus - D
-    S = (1-D**2)/(N-1)
-    ###########################
-    Z = M / S
-    Z[which(is.na(Z))]=0
-    if(only_pos==TRUE){Z[which(Z<0)]=0 }
-    return( Z )
+.denCenter <-function(x){
+    y=density(x)$x[order(-density(x)$y)[1]]
+    return(y)
     }
 
 
-.calFW<-function(data, tag){
-    D1=data
+.calFW<-function(data, tag ){
+    D1=as.matrix(data)
     TAG=tag
     options(warn=-1)
     COR=cor(t(D1), TAG)[,1]
     options(warn=1)
     COR[which(is.na(COR))]=0
     FW=COR
+    FW=FW-.denCenter(FW)
     return(FW)
     }
 
@@ -109,6 +104,7 @@ library(pROC)
     BFW[which(fw<=0)]=0
     return(BFW)
     }
+
 
 fwo<-function(data, fw){
     D2=data
@@ -123,59 +119,60 @@ fwo<-function(data, fw){
     return(Y)
     }
 
+
 fwp <- function(data, fw, n=10){
     TITLE='# Score calculation using FW-based PCA #'
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print(TITLE)
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
-    print(Sys.time())
+    print(Sys.time()) 
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print('starting...')
+    #############################
     D2=as.matrix(data)
+    D2=D2[which(matrixStats::rowVars(D2)>0),]
     FW=fw
     n=n
-    #############################
+    ############################
     INTER=intersect(names(FW),rownames(D2))
     UD2=D2[INTER,]
     load.1=FW[INTER]
     ###########################
-    print('calculating original Y...')
-    oY=cor(UD2,load.1)[,1]
+    print('calculating original score...')
+    oY=fwo(UD2, load.1)
     ###########################
     print('scaling data...')
     SUD2=UD2
-    RMS=sqrt(rowSums(UD2**2)/(ncol(UD2)-1))
+    RMS=sqrt(rowSums(SUD2**2)/(ncol(SUD2)-1))
     SUD2=SUD2/RMS
-    SUD2[which(is.na(SUD2))]=0
     ################
     print('conducting FW-based PCA')
+    ######################
     XUD2=SUD2 * load.1
     ################
-    fit.pca.2=irlba::prcomp_irlba( t(XUD2),
-              n=n, center=FALSE, scale. = FALSE)
-    vec=fit.pca.2$x
+    fit.pca.fwp=irlba::prcomp_irlba( t(XUD2), n=n, center=FALSE, scale. = FALSE)
+    this_pca=fit.pca.fwp$x
+    vec=this_pca
     ##########################
-    print('calculating predicted Y...')
-    load.2=cor(vec, oY)[,1]
-    #print(load.2)
-    pY.index=order(-abs(load.2))[1]
-    pY.d=load.2[pY.index]/abs(load.2[pY.index])
+    print('calculating predicted score...')
+    vec.w=cor(vec, oY)[,1]
+    pY.index=order(-abs(vec.w))[1]
+    pY.d=vec.w[pY.index]/abs(vec.w[pY.index])
     pY=vec[,pY.index] * pY.d
     names(pY)=colnames(UD2)
     ###################################
-    bestAbsCor=abs(load.2[pY.index])
+    bestAbsCor=abs(vec.w[pY.index])
     print( paste0('bestAbsCor: ', round(bestAbsCor,2) ) )
     print( paste0('Index of bestAbsCor: ', pY.index) )
     ###################################
-    options(warn=-1)
-    load.3=cor(t(UD2),pY)[,1]
-    options(warn=1)
-    load.3[which(is.na(load.3))]=0
+    load.2=.calFW(UD2,pY)
     ##################################
-    print('calculating final Y...')
-    Z=.pcc_perturb(load.1, load.3, only_pos=TRUE)
-    load.4 = load.1 * Z
-    fY=cor(UD2, load.4)[,1]
+    print('calculating final score...')
+    fit.pca.Y=prcomp(cbind(oY,pY),center=TRUE,scale.=TRUE)
+    fY.o=fit.pca.Y$x[,1]
+    fY.c=cor(fY.o, oY)
+    fY.d=fY.c/abs(fY.c)
+    fY=fY.o * fY.d
     ###################################
     print('finished!')
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
@@ -200,15 +197,6 @@ fwp <- function(data, fw, n=10){
      OUT$auc=this_auc
      return(OUT)
      }
-
-
-
-
-
-
-
-
-
 
 
 
