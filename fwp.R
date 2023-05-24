@@ -68,7 +68,8 @@ library(pROC)
 
 
 .denCenter <-function(x){
-    y=density(x)$x[order(-density(x)$y)[1]]
+    x.den=density(x)
+    y=x.den$x[order(-x.den$y)[1]]
     return(y)
     }
 
