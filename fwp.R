@@ -87,14 +87,6 @@ library(pROC)
     }
 
 
-.calBFW<-function(fw){
-    BFW=fw
-    BFW[which(fw>0)]=1
-    BFW[which(fw<=0)]=0
-    return(BFW)
-    }
-
-
 fwo<-function(data, fw){
     D2=data
     FW=fw
