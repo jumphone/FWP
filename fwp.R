@@ -43,18 +43,6 @@ library(pROC)
     }
 
 
-
-
-.normData<-function(mat){
-    mat=mat
-    mat=mat[which(rownames(mat)!=''),]
-    col_sum=colSums(mat)+0.1
-    nmat=t(t(mat)/col_sum) * 100000
-    nmat=log(nmat+1,10)
-    return(nmat)
-    }
-
-
 .loadFileNoGap <-function(input_path){
    library(data.table)
    HEADER=as.character(fread(input_path,header=FALSE, nrows=1))
