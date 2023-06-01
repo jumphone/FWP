@@ -1,8 +1,7 @@
-#  Score calculation using FWP (FW & PCA)
+
+# Score calculation using FWP (Feature Weight Pro)
 
 FW: feature weight
-
-PCA: principal component analysis
 
 # Usage:
 
