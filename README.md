@@ -1,5 +1,5 @@
 
-# Score calculation using FWP (Feature Weight Pro)
+# Score calculation using FWP (Feature-Weight Pro)
 
 FW: feature weight
 
