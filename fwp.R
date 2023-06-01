@@ -36,6 +36,32 @@ library(pROC)
     return(OUT)
     }
 
+
+.pcc_perturb_base0<-function(X, Y, only_pos=TRUE){
+    only_pos=only_pos
+    #############################
+    N=length(X)
+    ############################
+    X_base = 0
+    Y_base = 0
+    X_delta = X - X_base
+    Y_delta = Y - Y_base
+    ###########################
+    ABCD = .calABCD(X, Y, X_base, Y_base)
+    ###########################
+    D = ABCD[['D']]
+    D_plus = ( ABCD[['A']] + X_delta * Y_delta ) / sqrt( (ABCD[['B']] + X_delta**2) * (ABCD[['C']] + Y_delta**2) )
+    ###########################
+    M = D_plus - D
+    S = (1-D**2)/(N-1)
+     ###########################
+    Z = M / S
+    Z[which(is.na(Z))]=0
+    if(only_pos==TRUE){Z[which(Z<0)]=0 }
+    return( Z )
+    }
+
+
 .pcc_perturb<-function(X, Y, only_pos=FALSE ){
     only_pos=only_pos
     #############################
@@ -222,7 +248,8 @@ fwp <- function(data, fw, npcs=2){
     ############################################
     print('calculating predicted score...')
     ###############
-    ZMAT=apply(UD2, 2, .pcc_perturb, FW, only_pos=TRUE)
+    SUD2=apply(UD2,2,scale)
+    ZMAT=apply(SUD2, 2, .pcc_perturb_base0, FW, only_pos=TRUE)
     TMP=apply(ZMAT, 1, max)
     adjFW=TMP * sign(FW)
     adjFW=adjFW[which(adjFW!=0)]
