@@ -40,6 +40,8 @@ library(pROC)
 .pcc_perturb_base0<-function(X, Y, only_pos=TRUE){
     only_pos=only_pos
     #############################
+    X=.rmout(X)
+    Y=.rmout(Y)
     N=length(X)
     ############################
     X_base = 0
