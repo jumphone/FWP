@@ -6,6 +6,61 @@ library(HiClimR)
 library(irlba)
 library(pROC)
 
+
+.rmout<-function(x){
+    this_q3=quantile(x,0.75)
+    this_q1=quantile(x,0.25)
+    this_up=this_q3+1.5*(this_q3-this_q1)
+    this_lw=this_q1-1.5*(this_q3-this_q1)
+    y=x
+    y[which(x>this_up)]=this_up
+    y[which(x<this_lw)]=this_lw
+    return(y)
+    }
+
+.calABCD<-function(X, Y, X_base, Y_base){
+    X_base=X_base
+    Y_base=Y_base
+    X_delta=X-X_base
+    Y_delta=Y-Y_base
+    A = sum(X_delta * Y_delta)
+    B = sum(X_delta ** 2)
+    C = sum(Y_delta ** 2)
+    ############################
+    D = A / sqrt( B * C )
+    OUT=list()
+    OUT[['A']]=A
+    OUT[['B']]=B
+    OUT[['C']]=C
+    OUT[['D']]=D
+    return(OUT)
+    }
+
+.pcc_perturb<-function(X, Y, only_pos=FALSE ){
+    only_pos=only_pos
+    #############################
+    N=length(X)
+    ############################
+    X_base = mean(X)
+    Y_base = mean(Y)
+    X_delta = X - X_base
+    Y_delta = Y - Y_base
+    ###########################
+    ABCD = .calABCD(X, Y, X_base, Y_base)
+    ###########################
+    D = ABCD[['D']]
+    D_plus = ( ABCD[['A']] + X_delta * Y_delta ) / sqrt( (ABCD[['B']] + X_delta**2) * (ABCD[['C']] + Y_delta**2) )
+    ###########################
+    M = D_plus - D
+    S = (1-D**2)/(N-1)
+     ###########################
+    Z = M / S
+    Z[which(is.na(Z))]=0
+    if(only_pos==TRUE){Z[which(Z<0)]=0 }
+    return( Z )
+    }
+
+
 .simple_combine <- function(exp_sc_mat1, exp_sc_mat2, FILL=FALSE){
     FILL=FILL
     exp_sc_mat=exp_sc_mat1
@@ -41,7 +96,6 @@ library(pROC)
     OUT$combine=cbind(exp_sc_mat,exp_ref_mat)
     return(OUT)
     }
-
 
 .generate_mean <- function(exp_sc_mat, TAG, print_step=500){
     exp_sc_mat=exp_sc_mat
@@ -79,21 +133,6 @@ library(pROC)
         }
     return(NewRef)
     }
-
-
-.calTFIDF <- function(mat, scale.factor =10000) {
-      mat <- as.matrix(x = mat)
-      cSum <- colSums(x = mat)
-      tf <- tcrossprod(x = mat, y = Matrix::Diagonal(x = 1 / cSum))
-      rSum <- rowSums(x = mat)
-      idf <- ncol(x = mat) / rSum
-      nmat <- Matrix::Diagonal(n = length(x = idf), x = idf) %*% tf
-      nmat <- as.matrix( log1p( nmat  * scale.factor) ) 
-      rownames(nmat)=rownames(mat)
-      colnames(nmat)=colnames(mat)
-      nmat[which(is.na(nmat))]=0
-      return(nmat)
-      }
 
 
 .loadFileNoGap <-function(input_path){
@@ -142,7 +181,6 @@ library(pROC)
     }
 
 
-
 fwo<-function(data, fw){
     D2=data
     FW=fw
@@ -157,38 +195,8 @@ fwo<-function(data, fw){
     }
 
 
-.dwnClst <-function(data, n, npcs=10, topvar=2000, seed=123){
-    # using clusters to downscale data 
-    DATA=data
-    n=n
-    npcs=npcs
-    topvar=min(topvar,nrow(DATA))
-    seed=seed
-    #############################
-    print('dwnClst: variable features...')
-    VAR=matrixStats::rowVars(DATA)
-    USED=which(rank(-VAR)<=topvar)
-    UDATA=DATA[USED,]
-    print('dwnClst: pca...')
-    fit.pca=irlba::prcomp_irlba( t(UDATA), n=npcs, center=TRUE, scale. = FALSE)
-    PCA=fit.pca$x
-    print('dwnClst: k-means...')
-    set.seed(123)
-    KM=kmeans(PCA, centers=n)
-    CLST=KM$cluster
-    DATA.CLST=.generate_mean(DATA, CLST )
-    DATA.CLST=DATA.CLST[,order(as.numeric(colnames(DATA.CLST)))]
-    #################
-    OUT=list()
-    OUT$clst=CLST
-    OUT$data=DATA.CLST
-    return(OUT)
-    }
-
-
-
-fwp <- function(data, fw, npcs=10, nmax=NULL){
-    TITLE='# Score calculation using FW & PCA #'
+fwp <- function(data, fw, npcs=2){
+    TITLE='# Score calculation using Feature-Weight Pro #'
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print(TITLE)
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
@@ -199,69 +207,34 @@ fwp <- function(data, fw, npcs=10, nmax=NULL){
     D2=as.matrix(data)
     FW=fw
     npcs=npcs
-    nmax=nmax
+    ###########################
+    INTER=intersect(rownames(D2),names(FW))
+    D2=D2[INTER, ]
+    FW=FW[INTER]
     ############################
     UD2=D2
-    if( !is.null(nmax) ){
-        if(ncol(D2)>nmax){
-            print('sample-size is larger than nmax, downscale data...')
-            DC.OUT=.dwnClst(D2,nmax)
-            UD2=DC.OUT$data
-            }
-        }     
-    #############################
     UD2.V=matrixStats::rowVars(UD2)
     UD2=UD2[which( UD2.V > 0 ),]
+    FW=FW[rownames(UD2)]
     #############################
     print('calculating original score...')
     oY=fwo(UD2, FW) 
-    ############################
-    print('calculating correlation...')
-    ###########################
-    UD2.NORM=.calTFIDF(UD2)
-    UD2.cor=HiClimR::fastCor(UD2.NORM)
-    #UD2.cor=cor(UD2.NORM)
-    ############################
-    print('conducting PCA...')
-    load.1=oY
-    load.1.scale=scale(load.1)[,1]
-    ############################
-    SUD2=UD2.cor+1
-    SUD2.NORM=.calTFIDF(SUD2)
-    ##########################
-    XUD2=SUD2.NORM * load.1.scale
-    fit.pca.fwp=irlba::prcomp_irlba( t(XUD2), n=npcs, center=FALSE, scale. = FALSE)
-    this_pca=fit.pca.fwp$x
-    vec=this_pca
-    ##########################
+    ############################################
     print('calculating predicted score...')
-    vec.w=cor(vec, oY)[,1]
-    pY.index=order(-abs(vec.w))[1]
-    pY.d=vec.w[pY.index]/abs(vec.w[pY.index])
-    pY=vec[,pY.index] * pY.d
-    names(pY)=colnames(UD2)
+    ###############
+    ZMAT=apply(UD2, 2, .pcc_perturb, FW, only_pos=TRUE)
+    TMP=apply(ZMAT, 1, max)
+    adjFW=TMP * sign(FW)
+    adjFW=adjFW[which(adjFW!=0)]
+    pY=fwo(UD2, adjFW)
     ###################################
-    bestAbsCor=abs(vec.w[pY.index])
-    print( paste0('bestAbsCor: ', round(bestAbsCor,2) ) )
-    print( paste0('Index of bestAbsCor: ', pY.index) )
-    ###################################
+    FIT=irlba::prcomp_irlba(t( UD2 * FW ), n=npcs, center = TRUE, scale. = FALSE)
+    PCA=FIT$x   
+    cY=predict(lm(oY~PCA))
+    ####################################
     print('calculating final score...')
-    fit.pca.Y=prcomp(cbind(oY,pY),center=TRUE,scale.=TRUE)
-    fY.o=fit.pca.Y$x[,1]
-    fY.c=cor(fY.o, oY)
-    fY.d=fY.c/abs(fY.c)
-    fY=fY.o * fY.d
-    ##################################
-    if(!is.null(nmax)){
-        if(ncol(D2)>nmax){
-            CLST=DC.OUT$clst
-            fY.all=rep(0,length(CLST))
-            fY.all=fY[CLST]
-            fY=fY.all
-            }
-        }
-    ###################################
-    names(fY)=colnames(D2)
+    X=cbind(pY, cY)
+    fY=predict(lm(oY~X))
     ###################################
     print('finished!')
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
@@ -270,6 +243,7 @@ fwp <- function(data, fw, npcs=10, nmax=NULL){
     ##################################
     return(fY)
     }
+
 
 
 
