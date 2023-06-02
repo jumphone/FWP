@@ -2,7 +2,6 @@
 # Score calculation using Feature Weight Pro (FWP)
 
 library(data.table)
-library(HiClimR)
 library(irlba)
 library(pROC)
 
