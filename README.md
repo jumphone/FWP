@@ -3,7 +3,6 @@
 
 # Score calculation using FWP (Feature Weight Pro)
 
-FW: feature weight
 
 # Usage:
 
