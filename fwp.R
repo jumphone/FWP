@@ -7,17 +7,6 @@ library(irlba)
 library(pROC)
 
 
-.rmout<-function(x){
-    this_q3=quantile(x,0.75)
-    this_q1=quantile(x,0.25)
-    this_up=this_q3+1.5*(this_q3-this_q1)
-    this_lw=this_q1-1.5*(this_q3-this_q1)
-    y=x
-    y[which(x>this_up)]=this_up
-    y[which(x<this_lw)]=this_lw
-    return(y)
-    }
-
 .calABCD<-function(X, Y, X_base, Y_base){
     X_base=X_base
     Y_base=Y_base
@@ -34,33 +23,6 @@ library(pROC)
     OUT[['C']]=C
     OUT[['D']]=D
     return(OUT)
-    }
-
-
-.pcc_perturb_base0<-function(X, Y, only_pos=TRUE){
-    only_pos=only_pos
-    #############################
-    X=.rmout(X)
-    Y=.rmout(Y)
-    N=length(X)
-    ############################
-    X_base = 0
-    Y_base = 0
-    X_delta = X - X_base
-    Y_delta = Y - Y_base
-    ###########################
-    ABCD = .calABCD(X, Y, X_base, Y_base)
-    ###########################
-    D = ABCD[['D']]
-    D_plus = ( ABCD[['A']] + X_delta * Y_delta ) / sqrt( (ABCD[['B']] + X_delta**2) * (ABCD[['C']] + Y_delta**2) )
-    ###########################
-    M = D_plus - D
-    S = (1-D**2)/(N-1)
-     ###########################
-    Z = M / S
-    Z[which(is.na(Z))]=0
-    if(only_pos==TRUE){Z[which(Z<0)]=0 }
-    return( Z )
     }
 
 
@@ -248,21 +210,22 @@ fwp <- function(data, fw, npcs=2){
     print('calculating original score...')
     oY=fwo(UD2, FW) 
     ############################################
-    print('calculating predicted score...')
-    ###############
-    SUD2=apply(UD2,2,scale)
-    ZMAT=apply(SUD2, 2, .pcc_perturb_base0, FW, only_pos=TRUE)
+    print('calculating score(pca) & score(afw)...')
+    ###################################
+    # Global Information
+    FIT=irlba::prcomp_irlba(t( UD2 * FW ), n=npcs, center = TRUE, scale. = FALSE)
+    PCA=FIT$x
+    pY=predict(lm(oY~PCA))
+    ####################################
+    # Local Information
+    ZMAT=apply(UD2, 2, .pcc_perturb, FW, only_pos=TRUE)
     TMP=apply(ZMAT, 1, max)
     adjFW=TMP * sign(FW)
     adjFW=adjFW[which(adjFW!=0)]
-    pY=fwo(UD2, adjFW)
-    ###################################
-    FIT=irlba::prcomp_irlba(t( UD2 * FW ), n=npcs, center = TRUE, scale. = FALSE)
-    PCA=FIT$x   
-    cY=predict(lm(oY~PCA))
+    aY=fwo(UD2, adjFW)
     ####################################
     print('calculating final score...')
-    X=cbind(pY, cY)
+    X=cbind(pY, aY)
     fY=predict(lm(oY~X))
     ###################################
     print('finished!')
