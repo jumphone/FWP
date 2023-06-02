@@ -1,5 +1,5 @@
 
-# Score calculation using FW & PCA
+# Score calculation using Feature Weight Pro (FWP)
 
 library(data.table)
 library(HiClimR)
