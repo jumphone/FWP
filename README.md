@@ -1,5 +1,5 @@
 
-<img src="https://fzhang.bioinfo-lab.com/img/tools/logo_fwp.png" height="180">
+<img src="https://fzhang.bioinfo-lab.com/img/tools/logo_fwp.png" height="260">
 
 # Score calculation using FWP (Feature Weight Pro)
 
