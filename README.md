@@ -15,10 +15,10 @@
     TRAIN.TYPE='PCPG'
     TEST.TYPE='PCPG'
     
-    TRAIN.DATA=.loadFileNoGap(paste0('./data/56/Fitdevo/',TRAIN.TYPE,'/mat_train.tsv'))
-    TRAIN.TAG=read.csv(paste0('./data/56/Fitdevo/',TRAIN.TYPE,'/CorrectDP_train.csv'),header=F)
-    TEST.DATA=.loadFileNoGap(paste0('./data/56/Fitdevo/',TEST.TYPE,'/mat_test.tsv'))
-    TEST.TAG=read.csv(paste0('./data/56/Fitdevo/',TEST.TYPE,'/CorrectDP_test.csv'),header=F)
+    TRAIN.DATA=.loadFileNoGap(paste0('./data/first/',TRAIN.TYPE,'/mat_train.tsv'))
+    TRAIN.TAG=read.csv(paste0('./data/first/',TRAIN.TYPE,'/CorrectDP_train.csv'),header=F)
+    TEST.DATA=.loadFileNoGap(paste0('./data/first/',TEST.TYPE,'/mat_test.tsv'))
+    TEST.TAG=read.csv(paste0('./data/first/',TEST.TYPE,'/CorrectDP_test.csv'),header=F)
     
     # step1. calculate feature-weight (FW)
     FW=.calFW(TRAIN.DATA, TRAIN.TAG[,2])
