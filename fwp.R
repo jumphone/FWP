@@ -25,6 +25,7 @@ library(pROC)
     }
 
 
+
 .pcc_perturb<-function(X, Y, only_pos=FALSE ){
     only_pos=only_pos
     #############################
@@ -184,8 +185,8 @@ fwo<-function(data, fw){
     }
 
 
-fwp <- function(data, fw, npcs=2){
-    TITLE='# Score calculation using Feature-Weight Pro #'
+fwp <- function(data, fw, npcs=2, mode='final'){
+    TITLE='# Score calculation using Feature Weight Pro #'
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print(TITLE)
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
@@ -196,6 +197,7 @@ fwp <- function(data, fw, npcs=2){
     D2=as.matrix(data)
     FW=fw
     npcs=npcs
+    mode=mode
     ###########################
     INTER=intersect(rownames(D2),names(FW))
     D2=D2[INTER, ]
@@ -211,21 +213,27 @@ fwp <- function(data, fw, npcs=2){
     ############################################
     print('calculating score(pca) & score(afw)...')
     ###################################
-    # Global Information
-    FIT=irlba::prcomp_irlba(t( UD2 * FW ), n=npcs, center = TRUE, scale. = FALSE)
-    PCA=FIT$x
-    pY=predict(lm(oY~PCA))
+    # Global Information: Score (PCA)
+    FIT.PCA=irlba::prcomp_irlba(t( UD2 * FW ), n=npcs, center = TRUE, scale. = FALSE)
+    PCA=FIT.PCA$x   
+    FIT.LM=lm(oY~PCA)
+    pY=predict(FIT.LM)
+    names(pY)=names(oY)
+    if(mode %in% c('global','pca','g','p')){return(pY)}
     ####################################
-    # Local Information
+    # Local Information: Score (AFW)
     ZMAT=apply(UD2, 2, .pcc_perturb, FW, only_pos=TRUE)
     TMP=apply(ZMAT, 1, max)
     adjFW=TMP * sign(FW)
     adjFW=adjFW[which(adjFW!=0)]
     aY=fwo(UD2, adjFW)
+    if(mode %in% c('local','afw','l','a')){return(aY)}
     ####################################
     print('calculating final score...')
     X=cbind(pY, aY)
-    fY=predict(lm(oY~X))
+    FIT=lm(oY~X)
+    fY=predict(FIT)
+    names(fY)=names(oY)
     ###################################
     print('finished!')
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
