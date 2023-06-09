@@ -3,7 +3,7 @@
 
 library(data.table)
 library(irlba)
-library(pROC)
+
 
 
 .calABCD<-function(X, Y, X_base, Y_base){
@@ -247,6 +247,8 @@ fwp <- function(data, fw, npcs=2, mode='final'){
 
 
 .evaluate<-function(score, tag){
+     library(pROC)
+     ######################
      OUT1=score
      TAG=tag
      COR=cor(OUT1, TAG, method='spearman')
