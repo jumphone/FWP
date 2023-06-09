@@ -1,11 +1,6 @@
 
 # Score calculation using Feature Weight Pro (FWP)
 
-library(data.table)
-library(irlba)
-
-
-
 .calABCD<-function(X, Y, X_base, Y_base){
     X_base=X_base
     Y_base=Y_base
@@ -186,6 +181,8 @@ fwo<-function(data, fw){
 
 
 fwp <- function(data, fw, npcs=2, mode='final'){
+    library(irlba)
+    ############################
     TITLE='# Score calculation using Feature Weight Pro #'
     print(paste0(rep('#',nchar(TITLE)),collapse=''))
     print(TITLE)
