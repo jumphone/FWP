@@ -50,5 +50,6 @@ In the processed data, "correctDP" stands for "correct data phenotype".
 
 RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
 
+-------------------------------------------------------------------------------------------------------------------
 
-#### Explore more tools & studies: https://fzhang.bioinfo-lab.com/
+#### Explore more tools & studies of Jumphone: https://fzhang.bioinfo-lab.com/
