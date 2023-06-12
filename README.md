@@ -5,8 +5,7 @@
 
 # Benchmark Dataset:
 
-link：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2 
-code：ilj2 
+Download (Baidu Wangpan)：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2 
 
 # Usage:
 
