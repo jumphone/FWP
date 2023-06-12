@@ -17,6 +17,10 @@ Baidu Cloud Storage：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2
 
 In the processed data, "correctDP" stands for "correct data phenotype".
 
+### Pre-trained Feature Weight File:
+
+RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
+
 # Usage:
 
     library('data.table')
