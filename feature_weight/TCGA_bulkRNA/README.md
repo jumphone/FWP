@@ -1,4 +1,4 @@
-UCSC Xena (FPKM)
+# Name List:
 
 Bile_Duct_Cancer (CHOL)
 
@@ -30,3 +30,4 @@ Pheochromocytoma_&_Paraganglioma (PCPG)
 
 Thymoma (THYM)
 
+Raw FPKM files are downloaded from UCSC Xena database.
