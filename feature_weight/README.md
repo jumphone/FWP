@@ -1,2 +1,2 @@
-Pre-trained feature-weight files
+Feature-weight files
 
