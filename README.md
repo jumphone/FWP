@@ -15,6 +15,8 @@ scRNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/a
 
 Baidu Cloud Storage：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2 
 
+In the processed data, "correctDP" stands for "correct data phenotype".
+
 # Usage:
 
     library('data.table')
