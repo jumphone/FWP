@@ -3,7 +3,7 @@
 
 # Feature Weight Pro (FWP)
 
-FWP: feature-weight based measurement of cancerous transcriptome using cohort-wide and sample-specific information
+Feature-weight based measurement of cancerous transcriptome using cohort-wide and sample-specific information
 
 # Usage:
 
