@@ -3,24 +3,6 @@
 
 # Score calculation using FWP (Feature Weight Pro)
 
-# Benchmark Dataset:
-
-### Raw Data: 
-
-bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
-
-scRNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176078
-
-### Processed Data:
-
-Baidu Cloud Storage：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2 
-
-In the processed data, "correctDP" stands for "correct data phenotype".
-
-### Feature-Weight Files:
-
-RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
-
 # Usage:
 
     library('data.table')
@@ -50,3 +32,20 @@ RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
     result=.evaluate(out.fwp, TEST.TAG[,2])   
     print(result)
     
+# Benchmark Dataset:
+
+### Raw Data: 
+
+bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
+
+scRNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176078
+
+### Processed Data:
+
+Baidu Cloud Storage：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2 
+
+In the processed data, "correctDP" stands for "correct data phenotype".
+
+### Feature-Weight Files:
+
+RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
