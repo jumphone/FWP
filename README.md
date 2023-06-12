@@ -56,4 +56,4 @@ RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
 -------------------------------------------------------------------------------------------------------------------
 <img src="https://fzhang.bioinfo-lab.com/img/panda_happy_logo.png" height='150'>
 
-#### Explore more tools & studies of Jumphone: https://fzhang.bioinfo-lab.com/
+#### Explore more tools & studies: https://fzhang.bioinfo-lab.com/
