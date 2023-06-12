@@ -5,16 +5,15 @@
 
 # Benchmark Dataset:
 
-### Processed Data:
-
-Baidu Cloud Storage：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2 
-
 ### Raw Data: 
 
 bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
 
 scRNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176078
 
+### Processed Data:
+
+Baidu Cloud Storage：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2 
 
 # Usage:
 
