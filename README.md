@@ -40,7 +40,7 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
 
 bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
 
-scRNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176078
+single-cell and spatial RNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176078
 
 ### Processed Data:
 
