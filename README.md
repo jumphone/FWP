@@ -40,13 +40,19 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
 
 bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
 
-single-cell and spatial RNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176078
+single-cell & spatial RNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176078
+
 
 ### Processed Data:
 
 Baidu Cloud Storage：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2 
 
 In the processed data, "correctDP" stands for "correct data phenotype".
+
+Here, we provide the processed data of bulk & single-cell RNA-seq data.
+
+The spatial data is too large to upload, and researchers can download those data from the GEO database (GSE176078).
+
 
 ### Feature-Weight Files:
 
