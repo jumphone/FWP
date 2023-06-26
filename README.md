@@ -51,7 +51,7 @@ In the processed data, "correctDP" stands for "correct data phenotype".
 
 Here, we provide the processed data of bulk & single-cell RNA-seq data.
 
-The spatial data is too large to upload, and researchers can download those data from the GEO database (GSE176078).
+The spatial data is too large to upload, and researchers can download those data from the GEO database ( GSE176078 ).
 
 
 ### Feature-Weight Files:
