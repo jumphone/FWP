@@ -1,11 +1,4 @@
 
-#1142243F_filtered_count_matrix
-#1160920F_filtered_count_matrix
-#CID4290_filtered_count_matrix
-#CID4465_filtered_count_matrix
-#CID44971_filtered_count_matrix
-#CID4535_filtered_count_matrix
-
 TAGS=c('1142243F','1160920F','CID4290','CID4465','CID44971','CID4535')
 
 library(Seurat)
