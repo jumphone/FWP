@@ -58,7 +58,7 @@ Here, we provide the processed data of bulk & single-cell RNA-seq data.
 The processed spatial data is too large to upload ( raw spatial files are available at GEO database, GSE176078 ).
 
 
-### Feature-Weight Files:
+### Pre-trained Feature-Weight Files:
 
 RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
 
