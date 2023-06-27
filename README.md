@@ -5,6 +5,11 @@
 
 Feature-weight based measurement of cancerous transcriptome using cohort-wide and sample-specific information
 
+# Content:
+
+* [Usage](#usage)
+* [Benchmark Dataset](#benchmark-dataset)
+ 
 # Usage:
 
     library('data.table')
