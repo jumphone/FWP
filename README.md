@@ -27,6 +27,10 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
     # step1. calculate feature-weight (FW)
     FW=.calFW(TRAIN.DATA, TRAIN.TAG[,2])
     
+    # OR, you can directly load our pre-trained FW file. 
+    # https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
+    FW=readRDS('FW_bulk_TCGA_PCPG.rds') 
+    
     # step2. calculate score
     out.fwp=fwp(TEST.DATA, FW)
     
