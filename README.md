@@ -12,7 +12,8 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
  
 # Usage:
 
-    # R 4.2.0
+    # R version 4.2.0
+    
     library('data.table') # 1.14.6
     library('irlba') # 2.3.5.1
     library('pROC') # 1.18.2
