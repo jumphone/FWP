@@ -1,11 +1,4 @@
 
-#1142243F_filtered_count_matrix
-#1160920F_filtered_count_matrix
-#CID4290_filtered_count_matrix
-#CID4465_filtered_count_matrix
-#CID44971_filtered_count_matrix
-#CID4535_filtered_count_matrix
-
 TAGS=c('1142243F','1160920F','CID4290','CID4465','CID44971','CID4535')
 
 library(Seurat)
@@ -20,7 +13,6 @@ while(i<=length(TAGS)){
 TAG=TAGS[i]
 print(TAG)
 
-#this.mat=Read10X(paste0('data/spatial/filtered_count_matrices/',TAG,'_filtered_count_matrix/'),gene.column=1)
 this.mat=Read10X(paste0('data/spatial/raw_count_matrices/',TAG,'_raw_feature_bc_matrix/'),gene.column=2)
 this.image=Read10X_Image(paste0('data/spatial/spatial/',TAG,'_spatial/'))
 DefaultAssay(object = this.image) <- 'Spatial'
@@ -46,9 +38,6 @@ ttt=this.obj$tag
 
 write.table(ttt,file=paste0('./data/spatial_processed/',TAG,'/CorrectDP_train.csv'),sep=',',row.names=T,col.names=F,quote=F)
 write.table(ddd,paste0('./data/spatial_processed/',TAG,'/mat_train.tsv'),sep='\t',row.names=T,col.names=T,quote=F)
-
-#write.table(ttt,file=paste0('./data/spatial_processed/',TAG,'/CorrectDP_test.csv'),sep=',',row.names=T,col.names=F,quote=F)
-#write.table(ddd,paste0('./data/spatial_processed/',TAG,'/mat_test.tsv'),sep='\t',row.names=T,col.names=T,quote=F)
 
 i=i+1
 }
