@@ -28,7 +28,7 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
     TEST.DATA=.loadFileNoGap(paste0('./data/first/',TEST.TYPE,'/mat_test.tsv'))
     TEST.TAG=read.csv(paste0('./data/first/',TEST.TYPE,'/CorrectDP_test.csv'),header=F)
     
-    # DATA: a matrix (Row: genes; Column: samples)
+    # DATA: a matrix (Row: genes; Column: samples); after normalization (e.g. fpkm)
     # TAG: a vector (Tumor: 1; Normal: 0)
     
     # step1. calculate feature-weight (FW)
