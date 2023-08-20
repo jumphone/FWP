@@ -148,12 +148,6 @@ pdf('plot/p03_first_gl_heatmap.pdf',width=4,height=3)
 print(ht)
 dev.off()
 
-t.test(OOO[,2],OOO[,1],paired=T,alternative='greater')
-t.test(OOO[,3],OOO[,1],paired=T,alternative='greater')
-t.test(OOO[,4],OOO[,1],paired=T,alternative='greater')
-0.1483
-0.01891
-0.01571
 
 X=OOO[,2]
 shapiro.test(X)
@@ -165,6 +159,29 @@ wilcox.test(OOO[,4],OOO[,1],paired=T,alternative='greater')
 0.001188
 0.0005035
 
+
+wilcox.test(OOO[,1],OOO[,2],paired=T,alternative='greater')
+0.8269
+wilcox.test(OOO[,3],OOO[,2],paired=T,alternative='greater')
+0.08768
+wilcox.test(OOO[,4],OOO[,2],paired=T,alternative='greater')
+0.05229
+
+
+wilcox.test(OOO[,1],OOO[,3],paired=T,alternative='greater')
+0.999
+wilcox.test(OOO[,2],OOO[,3],paired=T,alternative='greater')
+0.9205
+wilcox.test(OOO[,4],OOO[,3],paired=T,alternative='greater')
+0.3991
+
+
+wilcox.test(OOO[,1],OOO[,4],paired=T,alternative='greater')
+0.9996
+wilcox.test(OOO[,2],OOO[,4],paired=T,alternative='greater')
+0.9533
+wilcox.test(OOO[,3],OOO[,4],paired=T,alternative='greater')
+0.6226
 
 
 
