@@ -63,9 +63,11 @@ Baidu Cloud Storage：https://pan.baidu.com/s/1WxImyznSwDtlox7bh0EyGg?pwd=ilj2
 
 In the processed data, "correctDP" stands for "correct data phenotype".
 
-Here, we provide the processed data of bulk & single-cell RNA-seq data.
+In the "Baidu Cloud Storage", we provide the processed data of bulk & single-cell RNA-seq data.
 
-The processed spatial data is too large to upload. Raw spatial files are available at GEO database: GSE176078 (BRCA), GSE211895 (PDAC, raw counts), https://github.com/anvaly/SpatialPortal (PDAC, metadata)
+The processed spatial data is too large to upload. 
+
+Raw spatial files are available at GEO database: GSE176078 (BRCA), GSE211895 (PDAC, raw counts), https://github.com/anvaly/SpatialPortal (PDAC, metadata)
 
 ### Pre-trained Feature-Weight Files:
 
