@@ -45,15 +45,13 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
     result=.evaluate(out.fwp, TEST.TAG[,2])   
     print(result)
 
-<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="2">
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="10">
+
+# Benchmark Dataset:
 
 ### Pre-trained Feature-Weight Files:
 
 RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
-
-<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="10">
-
-# Benchmark Dataset:
 
 ### Processed Data:
 
