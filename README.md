@@ -48,18 +48,10 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
 ### Pre-trained Feature-Weight Files:
 
 RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
-    
+
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="100">
+
 # Benchmark Dataset:
-
-### Raw Data: 
-
-bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
-
-single-cell & spatial RNA-seq, Wu et al., Nat Genet, 2021: GSE176078 (GEO database)
-
-single-cell RNA-seq, oligodendroglioma: GSE70630  
-
-spatial RNA-seq, pancreatic ductal adenocarcinoma (PDAC): GSE211895 (raw counts); https://github.com/anvaly/SpatialPortal (metadata)
 
 ### Processed Data:
 
@@ -71,7 +63,17 @@ In the "Baidu Cloud Storage", we provide the processed data of bulk & single-cel
 
 The processed spatial data is too large to upload. 
 
-Raw spatial files are available at GEO database: GSE176078 (BRCA), GSE211895 (PDAC, raw counts), https://github.com/anvaly/SpatialPortal (PDAC, metadata)
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="50">
+
+### Raw Data: 
+
+bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
+
+single-cell & spatial RNA-seq, Wu et al., Nat Genet, 2021: GSE176078 (GEO database)
+
+single-cell RNA-seq, oligodendroglioma: GSE70630  
+
+spatial RNA-seq, pancreatic ductal adenocarcinoma (PDAC): GSE211895 (raw counts); https://github.com/anvaly/SpatialPortal (metadata)
 
 <img src="https://fzhang.bioinfo-lab.com/img/white.png" height="50">
 
