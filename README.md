@@ -51,8 +51,11 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
 
 bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
 
-single-cell & spatial RNA-seq (Wu et al., Nat Genet, 2021): https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE176078
+single-cell & spatial RNA-seq, Wu et al., Nat Genet, 2021: GSE176078 (GEO database)
 
+single-cell RNA-seq, oligodendroglioma: GSE70630  
+
+spatial RNA-seq, pancreatic ductal adenocarcinoma (PDAC): GSE211895 (raw counts); https://github.com/anvaly/SpatialPortal (metadata)
 
 ### Processed Data:
 
@@ -62,8 +65,7 @@ In the processed data, "correctDP" stands for "correct data phenotype".
 
 Here, we provide the processed data of bulk & single-cell RNA-seq data.
 
-The processed spatial data is too large to upload ( raw spatial files are available at GEO database, GSE176078 ).
-
+The processed spatial data is too large to upload. Raw spatial files are available at GEO database: GSE176078 (BRCA), GSE211895 (PDAC, raw counts), https://github.com/anvaly/SpatialPortal (PDAC, metadata)
 
 ### Pre-trained Feature-Weight Files:
 
