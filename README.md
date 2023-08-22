@@ -9,7 +9,9 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
 
 * [Usage](#usage)
 * [Benchmark Dataset](#benchmark-dataset)
- 
+
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="10">
+
 # Usage:
 
     # R version 4.2.0
