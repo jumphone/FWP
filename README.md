@@ -49,7 +49,7 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
 
 RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
 
-<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="100">
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="50">
 
 # Benchmark Dataset:
 
