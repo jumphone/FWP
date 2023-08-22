@@ -44,6 +44,10 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
     # step3. evaluation
     result=.evaluate(out.fwp, TEST.TAG[,2])   
     print(result)
+
+### Pre-trained Feature-Weight Files:
+
+RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
     
 # Benchmark Dataset:
 
@@ -68,12 +72,6 @@ In the "Baidu Cloud Storage", we provide the processed data of bulk & single-cel
 The processed spatial data is too large to upload. 
 
 Raw spatial files are available at GEO database: GSE176078 (BRCA), GSE211895 (PDAC, raw counts), https://github.com/anvaly/SpatialPortal (PDAC, metadata)
-
-### Pre-trained Feature-Weight Files:
-
-RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
-
-
 
 <img src="https://fzhang.bioinfo-lab.com/img/white.png" height="50">
 
