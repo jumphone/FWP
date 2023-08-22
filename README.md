@@ -12,12 +12,6 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
  
 # Usage:
 
-### Pre-trained Feature-Weight Files:
-
-RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
-
-<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="5">
-
     # R version 4.2.0
     
     library('data.table') # 1.14.6
@@ -50,6 +44,12 @@ RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
     # step3. evaluation
     result=.evaluate(out.fwp, TEST.TAG[,2])   
     print(result)
+
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="2">
+
+### Pre-trained Feature-Weight Files:
+
+RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
 
 <img src="https://fzhang.bioinfo-lab.com/img/white.png" height="10">
 
