@@ -65,8 +65,6 @@ In the "Baidu Cloud Storage", we provide the processed data of bulk & single-cel
 
 The processed spatial data is too large to upload. 
 
-<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="5">
-
 ### Raw Data: 
 
 bulk RNA-seq (UCSC Xena): https://xenabrowser.net/datapages/
