@@ -12,6 +12,12 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
  
 # Usage:
 
+### Pre-trained Feature-Weight Files:
+
+RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
+
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="5">
+
     # R version 4.2.0
     
     library('data.table') # 1.14.6
@@ -47,12 +53,6 @@ Feature-weight based measurement of cancerous transcriptome using cohort-wide an
 
 <img src="https://fzhang.bioinfo-lab.com/img/white.png" height="10">
 
-### Pre-trained Feature-Weight Files:
-
-RDS files: https://github.com/jumphone/FWP/tree/main/feature_weight/TCGA_bulkRNA
-
-<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="20">
-
 # Benchmark Dataset:
 
 ### Processed Data:
@@ -65,7 +65,7 @@ In the "Baidu Cloud Storage", we provide the processed data of bulk & single-cel
 
 The processed spatial data is too large to upload. 
 
-<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="20">
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="5">
 
 ### Raw Data: 
 
