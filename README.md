@@ -63,7 +63,7 @@ In the "Baidu Cloud Storage", we provide the processed data of bulk & single-cel
 
 The processed spatial data is too large to upload. 
 
-<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="50">
+<img src="https://fzhang.bioinfo-lab.com/img/white.png" height="20">
 
 ### Raw Data: 
 
