@@ -3,9 +3,7 @@
 
 # Feature Weight Pro (FWP)
 
-**Feature-weight based measurement of cancerous transcriptome using cohort-wide and sample-specific information**
-
-***Cellular Oncology*, 2023, in press**
+**Feature-weight based measurement of cancerous transcriptome using cohort-wide and sample-specific information**, ***Cellular Oncology*, 2023, in press**
 
 # Content:
 
